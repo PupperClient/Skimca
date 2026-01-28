@@ -2,27 +2,45 @@ package cn.pupperclient.skimca.example;
 
 import cn.pupperclient.skimca.Skimca;
 import cn.pupperclient.skimca.SkimcaClient;
+import cn.pupperclient.skimca.SkimcaLogger;
+import cn.pupperclient.skimca.event.EventTarget;
+import cn.pupperclient.skimca.event.RenderSkiaEvent;
 import cn.pupperclient.skimca.font.FontHelper;
 import net.minecraft.client.MinecraftClient;
 
 import java.awt.*;
 
 public class ExampleSkimca {
-    public static boolean example_enabled = true;
+    @EventTarget(priority = EventTarget.Priority.HIGH)
+    public void onInGameRender(RenderSkiaEvent event) {
+        SkimcaLogger.info("ExampleSkimca", "render");
+        MinecraftClient client = MinecraftClient.getInstance();
+        String versionText = "Skimca v" + SkimcaClient.Version;
 
-    public static void draw() {
-        float centerX = MinecraftClient.getInstance().getWindow().getWidth() / 2f;
-        float centerY = MinecraftClient.getInstance().getWindow().getHeight() / 2f;
-
-        Skimca.drawText("Skimca Version: " + SkimcaClient.Version,
-                centerX,
-                centerY,
-                Color.WHITE,
-                FontHelper.load("Inter-Regular-CJKsc.ttf", 9, "/assets/skimca/fonts/Inter-Regular-CJKsc.ttf")
+        var font = FontHelper.load(
+                "Inter-Regular-CJKsc.ttf",
+                8,
+                "/assets/skimca/fonts/Inter-Regular-CJKsc.ttf"
         );
-    }
 
-    public static boolean isExample_enabled() {
-        return example_enabled;
+        // 在右上角显示
+        var textBounds = Skimca.getTextBounds(versionText, font);
+        float x = client.getWindow().getWidth() / 2f;
+        float y = client.getWindow().getHeight() / 2f;
+
+        Skimca.translate(x, y);
+
+        Skimca.save();
+
+        Skimca.drawText(
+                versionText,
+                x,
+                y,
+                new Color(255, 255, 255, 180),
+                font
+        );
+
+        Skimca.restore();
+        SkimcaLogger.info("ExampleSkimca", "render/restore");
     }
 }

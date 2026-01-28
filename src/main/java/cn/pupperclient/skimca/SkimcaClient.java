@@ -1,6 +1,7 @@
 package cn.pupperclient.skimca;
 
 import cn.pupperclient.skimca.event.SkimcaEventManager;
+import cn.pupperclient.skimca.example.ExampleSkimca;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -16,6 +17,8 @@ public class SkimcaClient implements ModInitializer, ClientModInitializer {
 
     private void autoRegisterEventHandlers() {
         try {
+            eventManager.register(ExampleSkimca.class);
+
             registerFromEntrypoints();
 
             SkimcaLogger.info("SkimcaClient",

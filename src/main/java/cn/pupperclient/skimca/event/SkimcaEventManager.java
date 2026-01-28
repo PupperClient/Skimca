@@ -250,7 +250,7 @@ public class SkimcaEventManager {
                     Class<? extends Event> eventClass = (Class<? extends Event>) paramType;
 
                     // Make the method accessible if it's private
-                    if (!method.canAccess(this)) {
+                    if (!method.isAccessible()) {
                         method.setAccessible(true);
                     }
 

@@ -25,20 +25,18 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version}"
   },
-
   "custom": {
     "modmenu": {
-      "badges": [ "library", "deprecated" ],
       "links": {
         "modmenu.discord": "https://discord.gg/jEGF5fb",
         "modmenu.source": "https://github.com/PupperClient/Skimca",
         "modmenu.website": "https://pupperclient.github.io/Pupper-Website/",
         "modmenu.issues": "https://github.com/PupperClient/Skimca/issues"
       },
+      "badges": [ "library", "deprecated" ],
       "authors": [
         "oneachina"
       ],
-      "environment": "client",
       "update_checker": false
     }
   }
